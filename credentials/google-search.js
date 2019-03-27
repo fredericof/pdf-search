@@ -1,0 +1,4 @@
+exports.credential = {
+    googleKey: "",
+    googleCx: ""
+};

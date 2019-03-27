@@ -1,0 +1,8 @@
+Criar um mecanismo de pesquisa em https://cse.google.com/cse/all
+Adicionar Custom Search API no developer console em https://console.developers.google.com
+
+Obter o contexto do mecanismo de pesquisa em settings;
+Obter credential key no developer console;
+
+Documentação: https://developers.google.com/custom-search/v1/overview
+Módulo Nodejs: https://github.com/googleapis/google-api-nodejs-client/tree/master/samples
