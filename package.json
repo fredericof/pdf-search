@@ -9,7 +9,8 @@
   "author": "Frederico Bitencourt",
   "license": "ISC",
   "dependencies": {
-    "download-pdf": "^0.1.6",
-    "googleapis": "^39.0.0"
+    "googleapis": "^39.0.0",
+    "mkdirp": "^0.5.1",
+    "readline-sync": "^1.4.9"
   }
 }

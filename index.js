@@ -1,7 +1,8 @@
 const { google: googleApi } = require('googleapis');
 const customsearch = googleApi.customsearch('v1');
 const { credential: googleCreadentials } = require('./credentials/google-search.js');
-const downloadPdf = require('download-pdf');
+const downloadPdf = require('./src/download-pdf');
+const readlineSync = require('readline-sync');
 
 // Search pdf link in Google
 async function searchPdfLinks(query, numLinks) {
@@ -27,27 +28,30 @@ async function doPdfDownload(link) {
         filename: ""
     };
 
-    downloadPdf(link, options, function (err) {
-        if (err) throw err
-        console.log("Download finished")
+    downloadPdf(link, options, function (resultOfDownload) {
+        console.log([resultOfDownload, link]);
     });
 };
 
 async function start() {
-    let pdfLinks = await searchPdfLinks('Clean Code', 5);
-    pdfLinks = pdfLinks.filter((link) => {
-        if (link.endsWith('.pdf')) {
-            return true;
-        }
-        return false;
-    });
-    console.log(pdfLinks)
-    for (const link of pdfLinks) {
-        await doPdfDownload(link);
-    };
+    let query = readlineSync.question('Name of pdf to search: ');
+    let qt = readlineSync.question('Quantity: ');
+
+    if (query && qt) {
+        let pdfLinks = await searchPdfLinks(query, qt);
+        pdfLinks = pdfLinks.filter((link) => {
+            if (link.endsWith('.pdf')) {
+                return true;
+            }
+            return false;
+        });
+        for (const link of pdfLinks) {
+            doPdfDownload(link);
+        };
+    } else {
+        console.log('Invalid Entries')
+    }
 };
 
 // Start Bot
-start().catch(err => {
-    console.log("Deu erro")
-});
+start();
